@@ -1,680 +1,947 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>Anirudhi Thanvi</title>
-        <meta content="width=device-width, initial-scale=1.0" name="viewport">
-        <meta content="Anirudhi Thanvi" name="keywords">
-        <meta content="Portfolio" name="description">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anirudhi Thanvi — LLM / AI Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#050a12;--surface:#0a1628;--surface2:#0f2040;
+  --accent:#00d4ff;--accent2:#7c3aed;--accent3:#00ff9d;--accent4:#f59e0b;
+  --text:#e8f4f8;--muted:#4a7a96;--border:rgba(0,212,255,0.12);
+  --font-head:'Syne',sans-serif;--font-mono:'Space Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font-mono);overflow-x:hidden;cursor:none}
 
-        <!-- Favicon -->
-        <link href="img/favicon.ico" rel="icon">
+/* CURSOR */
+#cursor{position:fixed;width:10px;height:10px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:screen;transition:width .2s,height .2s}
+#cursor-ring{position:fixed;width:36px;height:36px;border:1px solid var(--accent);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:transform .15s,width .2s,height .2s;mix-blend-mode:screen}
+#cursor.hover{width:16px;height:16px}
+#cursor-ring.hover{width:60px;height:60px}
 
-        <!-- Google Font -->
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+/* BG FX */
+#stars{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.grid-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background-image:linear-gradient(rgba(0,212,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,0.025) 1px,transparent 1px);background-size:60px 60px;z-index:0;pointer-events:none}
+.scanline{position:fixed;top:0;left:0;width:100%;height:2px;background:linear-gradient(transparent,rgba(0,212,255,0.04),transparent);animation:scanline 5s linear infinite;z-index:0;pointer-events:none}
 
-        <!-- CSS Libraries -->
-        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-        <link href="lib/animate/animate.min.css" rel="stylesheet">
-        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-        <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.2rem 4rem;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(20px);background:rgba(5,10,18,0.75);border-bottom:1px solid var(--border)}
+.logo{font-family:var(--font-head);font-size:1rem;font-weight:800;color:var(--accent);letter-spacing:.15em;text-transform:uppercase;text-decoration:none}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;transition:color .3s;position:relative;cursor:none}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--accent);transition:width .3s}
+.nav-links a:hover{color:var(--accent)}
+.nav-links a:hover::after{width:100%}
 
-        <link href="css/style.css" rel="stylesheet">
-    </head>
+/* SECTIONS */
+section{position:relative;z-index:1;padding:6rem 4rem}
+.container{max-width:1100px;margin:0 auto;width:100%}
 
-    <body data-spy="scroll" data-target=".navbar" data-offset="51">
-        <!-- Nav Bar Start -->
-        <div class="navbar navbar-expand-lg bg-light navbar-light">
-            <div class="container-fluid">
-                <a href="index.html" class="navbar-brand"></a>
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+/* SECTION HEADERS */
+.section-num{font-size:.62rem;letter-spacing:.4em;color:var(--accent);text-transform:uppercase;margin-bottom:.75rem;display:flex;align-items:center;gap:12px}
+.section-num::after{content:'';flex:0 0 80px;height:1px;background:var(--accent);opacity:.4}
+.section-title{font-family:var(--font-head);font-size:clamp(2rem,4vw,3.5rem);font-weight:800;letter-spacing:-.02em;line-height:1.1;margin-bottom:3rem}
+.section-title .dim{color:var(--muted)}
 
-                <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                    <div class="navbar-nav ml-auto">
-                        <a href="#home" class="nav-item nav-link active">Home</a>
-                        <a href="#about" class="nav-item nav-link">About</a>
-                        <a href="#service" class="nav-item nav-link">Skills</a>
-                        <a href="#portfolio" class="nav-item nav-link">Portfolio</a>
-                        <a href="#experience" class="nav-item nav-link">Experience</a>
-                        <a href="#team" class="nav-item nav-link">Achivements</a>
-                        <a href="#blog" class="nav-item nav-link">Research-Work</a>
-                        <a href="#contact" class="nav-item nav-link">Contact</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Nav Bar End -->
+/* ── HERO ── */
+#hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding-top:9rem;padding-bottom:4rem}
+.hero-tag{font-size:.68rem;letter-spacing:.3em;color:var(--accent);text-transform:uppercase;margin-bottom:1.5rem;opacity:0;animation:fadeUp .8s .3s forwards;display:flex;align-items:center;gap:12px}
+.hero-tag::before{content:'';width:30px;height:1px;background:var(--accent)}
+.hero-name{font-family:var(--font-head);font-size:clamp(3rem,8vw,6.5rem);font-weight:800;line-height:1;letter-spacing:-.02em;color:var(--text);opacity:0;animation:fadeUp .8s .5s forwards}
+.hero-name .outline{color:transparent;-webkit-text-stroke:1.5px var(--accent)}
+.hero-sub{font-size:clamp(.78rem,1.4vw,.95rem);color:var(--muted);margin-top:1.5rem;max-width:560px;line-height:1.9;opacity:0;animation:fadeUp .8s .7s forwards}
+.hero-sub strong{color:var(--text)}
+.hero-cta{display:flex;gap:1rem;margin-top:3rem;flex-wrap:wrap;opacity:0;animation:fadeUp .8s .9s forwards}
+.btn-p{padding:.75rem 2rem;background:transparent;border:1px solid var(--accent);color:var(--accent);font-family:var(--font-mono);font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;text-decoration:none;cursor:none;transition:all .3s;position:relative;overflow:hidden}
+.btn-p::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:var(--accent);opacity:.08;transition:left .3s}
+.btn-p:hover::before{left:0}
+.btn-p:hover{color:var(--text)}
+.btn-s{padding:.75rem 2rem;border:1px solid var(--muted);color:var(--muted);font-family:var(--font-mono);font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;text-decoration:none;cursor:none;transition:all .3s}
+.btn-s:hover{border-color:var(--accent);color:var(--accent)}
+.scroll-ind{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;animation:fadeUp 1s 1.5s forwards}
+.scroll-ind span{font-size:.58rem;letter-spacing:.3em;color:var(--muted);text-transform:uppercase}
+.scroll-line{width:1px;height:48px;background:linear-gradient(var(--accent),transparent);animation:scrollPulse 2s infinite}
 
+/* ── EXPERIENCE ── */
+#experience{background:rgba(0,212,255,.01)}
+.summary-banner{border:1px solid var(--border);padding:2rem 2.5rem;margin-bottom:3rem;position:relative;overflow:hidden;background:rgba(0,212,255,.02)}
+.summary-banner::after{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:linear-gradient(to bottom,var(--accent),var(--accent2))}
+.summary-text{font-size:.78rem;color:var(--muted);line-height:2;max-width:860px;padding-left:.5rem}
+.summary-text strong{color:var(--text)}
+.summary-pills{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.5rem}
+.spill{font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;padding:.3rem .8rem;border:1px solid rgba(0,212,255,.25);color:var(--accent)}
+.skills-label,.timeline-label{font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;margin-bottom:1.5rem;display:flex;align-items:center;gap:10px;margin-top:2.5rem}
+.skills-label{color:var(--accent3)}
+.skills-label::after{content:'';flex:1;height:1px;background:rgba(0,255,157,.15)}
+.timeline-label{color:var(--accent2)}
+.timeline-label::after{content:'';flex:1;height:1px;background:rgba(124,58,237,.15)}
+.skill-domains{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:var(--border)}
+.skill-domain{background:var(--bg);padding:1.5rem}
+.domain-title{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:8px}
+.dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.dot-ai{background:var(--accent)}.dot-ml{background:var(--accent2)}.dot-be{background:var(--accent3)}.dot-fe{background:var(--accent4)}
+.skill-tags{display:flex;flex-wrap:wrap;gap:.4rem}
+.stag{font-size:.56rem;letter-spacing:.08em;padding:.22rem .5rem;border:1px solid}
+.stag-ai{color:var(--accent);border-color:rgba(0,212,255,.2)}
+.stag-ml{color:var(--accent2);border-color:rgba(124,58,237,.2)}
+.stag-be{color:var(--accent3);border-color:rgba(0,255,157,.2)}
+.stag-fe{color:var(--accent4);border-color:rgba(245,158,11,.2)}
+.stag-cloud{color:#f87171;border-color:rgba(248,113,113,.2)}
+.company-block{margin-bottom:3rem}
+.company-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid var(--border)}
+.company-name{font-family:var(--font-head);font-size:1.2rem;font-weight:800}
+.company-role{font-size:.62rem;letter-spacing:.15em;color:var(--accent);text-transform:uppercase;margin-top:.3rem}
+.company-meta{text-align:right;font-size:.62rem;color:var(--muted);line-height:1.9}
+.company-meta .tenure{color:var(--accent3)}
+.role-card{padding:1.5rem;border:1px solid var(--border);margin-bottom:1rem;position:relative;overflow:hidden;transition:background .3s,border-color .3s}
+.role-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%}
+.role-card.c-ge::before{background:var(--accent)}
+.role-card.c-apple::before{background:var(--accent2)}
+.role-card.c-misc::before{background:var(--accent3)}
+.role-card:hover{background:rgba(0,212,255,.02);border-color:rgba(0,212,255,.2)}
+.role-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem;gap:1rem}
+.role-title{font-family:var(--font-head);font-size:.9rem;font-weight:700}
+.cbadge{font-size:.52rem;letter-spacing:.15em;text-transform:uppercase;padding:.22rem .6rem;border:1px solid;white-space:nowrap}
+.cb-ge{color:var(--accent);border-color:rgba(0,212,255,.3)}
+.cb-ap1{color:var(--accent2);border-color:rgba(124,58,237,.3)}
+.cb-ap2{color:#a78bfa;border-color:rgba(167,139,250,.3)}
+.cb-ap3{color:#c4b5fd;border-color:rgba(196,181,253,.3)}
+.cb-misc{color:var(--accent3);border-color:rgba(0,255,157,.2)}
+.role-bullets{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.role-bullets li{font-size:.7rem;color:var(--muted);line-height:1.9;padding-left:1.2rem;position:relative}
+.role-bullets li::before{content:'▸';position:absolute;left:0;color:var(--accent);font-size:.62rem}
+.early-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:var(--border)}
+.early-card{background:var(--bg);padding:1.5rem;transition:background .3s}
+.early-card:hover{background:rgba(255,255,255,.02)}
+.early-org{font-size:.58rem;letter-spacing:.15em;color:var(--muted);text-transform:uppercase;margin-bottom:.5rem}
+.early-role{font-family:var(--font-head);font-size:.9rem;font-weight:700;margin-bottom:.75rem}
+.early-desc{font-size:.7rem;color:var(--muted);line-height:1.8}
 
-        <!-- Hero Start -->
-        <div class="hero" id="home">
-            <div class="container-fluid">
-                <div class="row align-items-center">
-                    <div class="col-sm-12 col-md-6">
-                        <div class="hero-content">
-                            <div class="hero-text">
-                                <p>I'm</p>
-                                <h1>Anirudhi Thanvi</h1>
-                                <h2></h2>
-                                <div class="typed-text">Programmer, Researcher, Web Designer, Front End Developer, Data Scientist</div>
-                            </div>
-                            <div class="hero-btn">
-                                <a class="btn" href="#contact">Hire Me</a>
-                                <a class="btn" href="https://drive.google.com/file/d/1pEp2eZxZybRhoH1GReg2Y3hESXrLmCiP/view?usp=sharing">Download Resume</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-md-6 d-none d-md-block">
-                        <div class="hero-image">
-                            <img src="img/portfolio-edit copy.png" alt="Hero Image">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Hero End -->
+/* ── ABOUT ── */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.about-text p{color:var(--muted);line-height:2;font-size:.82rem;margin-bottom:1.5rem}
+.about-text p strong{color:var(--text)}
+.about-skills{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:2rem}
+.ask{padding:.5rem 1rem;border:1px solid var(--border);color:var(--accent);font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;transition:all .3s}
+.ask::before{content:'▸';margin-right:8px;color:var(--accent3)}
+.ask:hover{background:rgba(0,212,255,.04);border-color:rgba(0,212,255,.3)}
+.orbit-wrap{position:relative;height:380px;display:flex;align-items:center;justify-content:center}
+.orbit{position:absolute;border:1px solid rgba(0,212,255,.1);border-radius:50%}
+.orbit-1{width:200px;height:200px;animation:spin 6s linear infinite}
+.orbit-2{width:300px;height:300px;animation:spin 10s linear reverse infinite}
+.orbit-3{width:370px;height:370px;animation:spin 15s linear infinite}
+.odot{position:absolute;width:8px;height:8px;border-radius:50%;top:-4px;left:50%;transform:translateX(-50%)}
+.odot-1{background:var(--accent)}
+.odot-2{background:var(--accent2)}
+.odot-3{background:var(--accent3)}
+.core-node{width:80px;height:80px;border:1px solid var(--accent);display:flex;align-items:center;justify-content:center;font-size:.58rem;letter-spacing:.1em;color:var(--accent);position:relative;z-index:2}
+.core-node::before{content:'';position:absolute;inset:-14px;border:1px solid rgba(0,212,255,.15)}
+.core-node::after{content:'';position:absolute;inset:-28px;border:1px solid rgba(0,212,255,.08);animation:spin 8s linear infinite}
 
+/* ── PROJECTS ── */
+.filter-bar{display:flex;gap:1rem;margin-bottom:2.5rem;flex-wrap:wrap}
+.fbtn{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);background:none;border:1px solid var(--border);padding:.38rem .9rem;cursor:pointer;font-family:var(--font-mono);transition:all .3s}
+.fbtn.active,.fbtn:hover{color:var(--accent);border-color:rgba(0,212,255,.35)}
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:1px;background:var(--border)}
+.project-card{background:var(--bg);padding:2rem;position:relative;overflow:hidden;transition:background .3s,padding-left .3s}
+.project-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:0;background:var(--accent);transition:height .4s}
+.project-card:hover::before{height:100%}
+.project-card:hover{background:rgba(0,212,255,.025);padding-left:2.4rem}
+.project-card.hidden{display:none}
+.pnum{font-size:.58rem;color:var(--muted);letter-spacing:.3em;margin-bottom:.9rem}
+.ptitle{font-family:var(--font-head);font-size:1.05rem;font-weight:700;margin-bottom:.75rem;line-height:1.3}
+.pdesc{font-size:.7rem;color:var(--muted);line-height:1.9;margin-bottom:1.4rem}
+.ptags{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.2rem}
+.ptag{font-size:.56rem;letter-spacing:.1em;color:var(--accent2);border:1px solid rgba(124,58,237,.25);padding:.2rem .5rem;text-transform:uppercase}
+.plink{font-size:.6rem;letter-spacing:.18em;color:var(--accent);text-decoration:none;text-transform:uppercase;border-bottom:1px solid rgba(0,212,255,.25);padding-bottom:1px;transition:border-color .3s}
+.plink:hover{border-color:var(--accent)}
 
-        <!-- About Start -->
-        <div class="about wow fadeInUp" data-wow-delay="0.1s" id="about">
-            <div class="container-fluid">
-                <div class="row align-items-center">
-                    <div class="col-lg-6">
-                        <div class="about-img">
-                            <img src="img/about.jpg" alt="Image">
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="about-content">
-                            <div class="section-header text-left">
-                                <p>WHO AM I</p>
-                                <h2>Programmer, Developer & Researcher </h2>
-                            </div>
-                            <div class="about-text">
-                                <p>
-                                    Inquisitive Person with a belief <strong>"Be Somebody Nobody Thought You Could Be"</strong>.
-                                     4 horseman's of my life : Coding, Laptop, Research, Caffine
-                                </p>
-                            </div>
-                            <div class="skills">
-                                <div class="skill-name">
-                                    <p>Leadership Skills</p><p></p>
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <div class="skill-name">
-                                    <p>Time Managment</p><p></p>
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <div class="skill-name">
-                                    <p>Listening Skills</p><p></p>
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <div class="skill-name">
-                                    <p>Creative & Thinking skills</p><p></p>
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                            <a class="btn" href="https://www.linkedin.com/in/anirudhithanvi/">Check out to know more</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- About End -->
-        <!-- Banner Start -->
-        <div class="banner wow zoomIn" data-wow-delay="0.1s">
-            <div class="container">
-                <div class="section-header text-center">    
-                    <h2>About<span>Me</span></h2>
-                </div>
-                <div class="container banner-text">
-                    <p>
-                        I am a final year student at Jaipur Engineering College and Research Centre who's conscientious and has an unwavering resolve with eagerness to explore and learn new technologies. 
-                        I may not know everything but I make sure to aquire every possible knowledge that comes my way and that's what diverges me from the usual crowd .
-                    </p>
-                </div>
-            </div>
-        </div>
-        <!-- Banner End -->
-        
-        <!-- Skills Start -->
-        <div class="service" id="service">
-            <div class="container">
-                <div class="section-header text-center wow zoomIn" data-wow-delay="0.1s">
-                    <p>What I do</p>
-                    <h2>Optimal Solution | Less Complexity </h2>
-                </div>
-                <div class="row">
-                    <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.0s">
-                        <div class="service-item">
-                            <div class="service-icon">
-                                <i class="fa fa-laptop"></i>
-                            </div>
-                            <div class="service-text">
-                                <h3>Web Developer</h3>
-                                <p>
-                                    HTML, CSS, JavaScript, Git, MySql, pHp
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.2s">
-                        <div class="service-item">
-                            <div class="service-icon">
-                                <i class="fa fa-laptop-code"></i>
-                            </div>
-                            <div class="service-text">
-                                <h3>Data Scientist</h3>
-                                <p>
-                                    Python, Machine Learning, Data Visualization
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.4s">
-                        <div class="service-item">
-                            <div class="service-icon">
-                                <i class="fa fa-graduation-cap"></i>
-                            </div>
-                            <div class="service-text">
-                                <h3>Research Scholar</h3>
-                                <p>
-                                    Technical Writing, Domain Study
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.6s">
-                        <div class="service-item">
-                            <div class="service-icon">
-                                <i class="fas fa-file-code"></i>
-                            </div>
-                            <div class="service-text">
-                                <h3>MLops</h3>
-                                <p>
-                                    Deep Learning, Jenkins, Git, Github, Python, CI|CD Pipeline(basics)
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.6s">
-                        <div class="service-item">
-                            <div class="service-icon">
-                                <i class="fa fa-code"></i>
-                            </div>
-                            <div class="service-text">
-                                <h3>Programming</h3>
-                                <p>
-                                    Python, C, Cpp
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.6s">
-                        <div class="service-item">
-                            <div class="service-icon">
-                                <i class="fas fa-cogs"></i>
-                            </div>
-                            <div class="service-text">
-                                <h3>Tools / technologies</h3>
-                                <p>
-                                    Anaconda, Github, Docker, VScode
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+/* ── ARTICLES ── */
+.articles-list{width:100%}
+.article-item{display:grid;grid-template-columns:70px 1fr auto;gap:2rem;align-items:start;padding:2rem 0;border-bottom:1px solid var(--border);transition:padding-left .3s;cursor:none}
+.article-item:hover{padding-left:1.2rem}
+.article-item:hover .atitle{color:var(--accent)}
+.anum{font-size:.68rem;color:var(--muted);padding-top:.2rem}
+.atitle{font-family:var(--font-head);font-size:1.05rem;font-weight:700;margin-bottom:.5rem;transition:color .3s}
+.adesc{font-size:.72rem;color:var(--muted);line-height:1.85}
+.atag{display:inline-block;font-size:.56rem;letter-spacing:.15em;color:var(--accent3);border:1px solid rgba(0,255,157,.2);padding:.18rem .5rem;text-transform:uppercase;margin-top:.6rem}
+.adate{font-size:.62rem;color:var(--muted);letter-spacing:.1em;white-space:nowrap;padding-top:.2rem}
 
-                </div>
-                
-            </div>
-        </div>
-        <!-- Service End -->
-        
-        
-<!-- Portfolio Start -->
-<div class="portfolio" id="portfolio">
-    <div class="container">
-        <div class="section-header text-center wow zoomIn" data-wow-delay="0.1s">
-            <p>My Portfolio</p>
-            <h2>Development Epitome</h2>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <ul id="portfolio-filter">
-                    <li data-filter="*" class="filter-active">All</li>
-                    <li data-filter=".filter-1">Web Developemt</li>
-                    <li data-filter=".filter-2">Data Science</li>
-                </ul>
-            </div>
-        </div>
-        <div class="row portfolio-container">
-            <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item filter-2 wow fadeInUp" data-wow-delay="0.0s">
-                <div class="portfolio-wrap">
-                    <div class="portfolio-img">
-                        <img src="img/portfolio-1.jpg" alt="Image" height="400"> 
-                    </div>
-                    <div class="portfolio-text">
-                        <h3>Plant Disease Detection</h3>
-                        <a class="btn" href="img/portfolio-1.jpg" data-lightbox="portfolio">+</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item filter-2 wow fadeInUp" data-wow-delay="0.2s">
-                <div class="portfolio-wrap">
-                    <div class="portfolio-img">
-                        <img src="img/portfolio-2.jpg" alt="Image">
-                    </div>
-                    <div class="portfolio-text">
-                        <h3>Facebook EDA</h3>
-                        <a class="btn" href="https://jovian.ai/ani12thanvi/facebook-data-analysis">+</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item filter-1 wow fadeInUp" dat   a-wow-delay="0.4s">
-                <div class="portfolio-wrap">
-                    <div class="portfolio-img">
-                        <img src="img/portfolio-6.jpg" alt="Image">
-                    </div>
-                    <div class="portfolio-text">
-                        <h3>Ecommerce Website(Artistry)</h3>
-                        <a class="btn" href="https://github.com/ani-thanvi/Artistery--The-Power-of-Arts">+</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item filter-2 wow fadeInUp" data-wow-delay="0.6s">
-                <div class="portfolio-wrap">
-                    <div class="portfolio-img">
-                        <img src="img/portfolio-4.jpg" alt="Image">
-                    </div>
-                    <div class="portfolio-text">
-                        <h3>Docker Project</h3>
-                        <a class="btn" href="https://github.com/ani-thanvi/DockerProject">+</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item filter-1 wow fadeInUp" data-wow-delay="0.8s">
-                <div class="portfolio-wrap">
-                    <div class="portfolio-img">
-                        <img src="img/portfolio-3.png" alt="Image">
-                    </div>
-                    <div class="portfolio-text">
-                        <h3>Food Delivery Application</h3>
-                        <a class="btn" href="https://github.com/ani-thanvi/Annapurna">+</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item filter-1 wow fadeInUp" data-wow-delay="1s">
-                <div class="portfolio-wrap">
-                    <div class="portfolio-img">
-                        <img src="img/portfolio-5.jpg" alt="Image">
-                    </div>
-                    <div class="portfolio-text">
-                        <h3>Farmistry Website</h3>
-                        <a class="btn" href="https://github.com/ani-thanvi/Farmistry-WebApp">+</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+/* ── PUBLICATIONS ── */
+.pub-grid{display:grid;gap:1px;background:var(--border)}
+.pub-card{background:var(--bg);padding:2rem;display:grid;grid-template-columns:52px 1fr auto;gap:1.5rem;align-items:start;transition:background .3s,padding-left .3s}
+.pub-card:hover{background:rgba(0,212,255,.02);padding-left:2.5rem}
+.pub-idx{font-size:.62rem;letter-spacing:.2em;color:var(--accent);padding-top:.2rem;font-weight:700}
+.pub-venue{font-size:.58rem;letter-spacing:.18em;color:var(--accent2);text-transform:uppercase;margin-bottom:.6rem;display:flex;align-items:center;gap:8px}
+.pub-venue::before{content:'';display:inline-block;width:5px;height:5px;border:1px solid var(--accent2)}
+.pub-title{font-family:var(--font-head);font-size:.92rem;font-weight:700;margin-bottom:.7rem;line-height:1.5}
+.pub-authors{font-size:.68rem;color:var(--muted);line-height:1.8}
+.pub-authors strong{color:var(--accent3)}
+.pub-doi{display:inline-block;margin-top:.7rem;font-size:.58rem;letter-spacing:.1em;color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(0,212,255,.25);padding-bottom:1px;transition:border-color .3s}
+.pub-doi:hover{border-color:var(--accent)}
+.pub-meta{display:flex;flex-direction:column;align-items:flex-end;gap:8px;padding-top:.2rem}
+.pub-year{font-size:.62rem;color:var(--muted);border:1px solid var(--border);padding:.28rem .55rem;white-space:nowrap;letter-spacing:.1em}
+.pub-topic{font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;padding:.22rem .5rem;border:1px solid;white-space:nowrap}
+.tp-ml{color:var(--accent);border-color:rgba(0,212,255,.25)}
+.tp-cv{color:var(--accent2);border-color:rgba(124,58,237,.25)}
+.tp-bc{color:var(--accent3);border-color:rgba(0,255,157,.25)}
+.tp-iot{color:var(--accent4);border-color:rgba(245,158,11,.25)}
+
+/* ── CONTACT ── */
+#contact{min-height:60vh;display:flex;align-items:center}
+.contact-intro{font-size:.82rem;color:var(--muted);line-height:2;margin-bottom:3rem;max-width:500px}
+.contact-links{display:flex;flex-direction:column;gap:1.5rem}
+.clink{display:flex;align-items:center;gap:2rem;text-decoration:none;cursor:none;transition:all .3s}
+.clink:hover .cline{width:60px;background:var(--accent)}
+.clink:hover .clabel{color:var(--accent)}
+.cline{width:30px;height:1px;background:var(--muted);transition:all .3s}
+.clabel{font-size:.68rem;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;transition:color .3s;min-width:70px}
+.cval{font-family:var(--font-head);font-size:1.05rem;font-weight:700;margin-left:auto;color:var(--text)}
+
+/* FOOTER */
+footer{padding:2.5rem 4rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1;flex-wrap:wrap;gap:1rem}
+.ftext{font-size:.6rem;color:var(--muted);letter-spacing:.2em;text-transform:uppercase}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s,transform .7s}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes scrollPulse{0%,100%{opacity:0;transform:scaleY(0);transform-origin:top}50%{opacity:1;transform:scaleY(1)}}
+@keyframes scanline{0%{transform:translateY(-100%)}100%{transform:translateY(100vh)}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.blink{animation:blink 1s step-end infinite}
+
+/* ── TYPED ── */
+.typed-wrap{font-size:.82rem;color:var(--muted);margin-top:1rem;opacity:0;animation:fadeUp .8s .75s forwards;min-height:1.4em}
+.typed-wrap span{color:var(--accent3)}
+.typed-cursor{color:var(--accent);animation:blink 1s step-end infinite}
+
+/* ── SERVICES ── */
+#services{background:rgba(124,58,237,.02)}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;background:var(--border)}
+.svc-card{background:var(--bg);padding:2rem;transition:background .3s,padding-top .3s;position:relative;overflow:hidden}
+.svc-card::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--accent2);transition:width .4s}
+.svc-card:hover::after{width:100%}
+.svc-card:hover{background:rgba(124,58,237,.03)}
+.svc-icon{font-size:1.4rem;margin-bottom:1.2rem;color:var(--accent2)}
+.svc-title{font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:.6rem}
+.svc-desc{font-size:.7rem;color:var(--muted);line-height:1.9}
+
+/* ── SOFT SKILLS ── */
+.soft-skills{margin-top:2.5rem}
+.soft-skill-item{margin-bottom:1.4rem}
+.soft-skill-header{display:flex;justify-content:space-between;margin-bottom:.5rem}
+.soft-skill-name{font-size:.68rem;letter-spacing:.1em;color:var(--text)}
+.soft-skill-pct{font-size:.62rem;color:var(--accent);letter-spacing:.1em}
+.skill-bar-bg{height:2px;background:rgba(0,212,255,.1);position:relative;overflow:hidden}
+.skill-bar-fill{height:100%;background:linear-gradient(to right,var(--accent),var(--accent2));width:0;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
+.skill-bar-fill.animated{width:var(--w)}
+
+/* ── ACHIEVEMENTS ── */
+#achievements{background:rgba(0,255,157,.01)}
+.ach-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;background:var(--border)}
+.ach-card{background:var(--bg);padding:2rem;position:relative;overflow:hidden;transition:background .3s}
+.ach-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(to right,var(--accent3),transparent)}
+.ach-card:hover{background:rgba(0,255,157,.025)}
+.ach-num{font-size:2.5rem;font-family:var(--font-head);font-weight:800;color:rgba(0,255,157,.1);line-height:1;margin-bottom:.5rem}
+.ach-title{font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:.4rem}
+.ach-org{font-size:.6rem;letter-spacing:.18em;color:var(--accent3);text-transform:uppercase;margin-bottom:.75rem}
+.ach-desc{font-size:.7rem;color:var(--muted);line-height:1.8}
+
+/* ── CONTACT FORM ── */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.form-group{margin-bottom:1.2rem}
+.form-input{width:100%;background:transparent;border:none;border-bottom:1px solid var(--border);color:var(--text);font-family:var(--font-mono);font-size:.75rem;padding:.75rem 0;letter-spacing:.05em;outline:none;transition:border-color .3s}
+.form-input:focus{border-color:var(--accent)}
+.form-input::placeholder{color:var(--muted);font-size:.7rem}
+textarea.form-input{resize:none;height:120px}
+.form-btn{margin-top:1rem;padding:.8rem 2.5rem;background:transparent;border:1px solid var(--accent);color:var(--accent);font-family:var(--font-mono);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:all .3s;position:relative;overflow:hidden}
+.form-btn::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:var(--accent);opacity:.08;transition:left .3s}
+.form-btn:hover::before{left:0}
+.form-btn:hover{color:var(--text)}
+.social-links{display:flex;gap:1.2rem;margin-top:2.5rem;flex-wrap:wrap}
+.soc-link{width:40px;height:40px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);text-decoration:none;font-size:.8rem;transition:all .3s;cursor:none}
+.soc-link:hover{border-color:var(--accent);color:var(--accent);background:rgba(0,212,255,.05)}
+.form-success{font-size:.72rem;color:var(--accent3);margin-top:.75rem;display:none}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  nav{padding:1rem 1.5rem}
+  .nav-links{gap:1.5rem}
+  section{padding:5rem 1.5rem}
+  .about-grid{grid-template-columns:1fr}
+  .orbit-wrap{display:none}
+  .company-header{flex-direction:column;gap:.5rem}
+  .company-meta{text-align:left}
+  .role-header{flex-direction:column;gap:.5rem}
+  .pub-card{grid-template-columns:36px 1fr}
+  .pub-meta{display:none}
+  .article-item{grid-template-columns:40px 1fr}
+  .adate{display:none}
+  footer{padding:2rem 1.5rem}
+  .contact-grid{grid-template-columns:1fr}
+}
+@media(max-width:480px){
+  .hero-cta{flex-direction:column}
+  .btn-p,.btn-s{text-align:center}
+}
+</style>
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+<canvas id="stars"></canvas>
+<div class="grid-overlay"></div>
+<div class="scanline"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="logo">AT<span style="color:var(--muted);font-weight:400">_portfolio</span></a>
+  <ul class="nav-links">
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#achievements">Awards</a></li>
+    <li><a href="#articles">Articles</a></li>
+    <li><a href="#publications">Research</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section id="hero">
+  <div class="container" style="position:relative">
+    <div class="hero-tag">LLM Engineer &amp; AI Researcher</div>
+    <h1 class="hero-name">
+      Anirudhi<br>
+      <span class="outline">Thanvi</span>
+    </h1>
+    <div class="typed-wrap">I'm a <span id="typed-text"></span><span class="typed-cursor">|</span></div>
+    <p class="hero-sub">
+      <strong>3+ years</strong> building production-grade Generative AI, RAG pipelines, and conversational systems for Fortune 500 enterprises including <strong>Apple</strong> and <strong>GE Vernova</strong>. Researcher. Open-source contributor. Writer on AI.
+    </p>
+    <div class="hero-cta">
+      <a href="#experience" class="btn-p">View Experience</a>
+      <a href="https://drive.google.com/file/d/1pEp2eZxZybRhoH1GReg2Y3hESXrLmCiP/view?usp=sharing" class="btn-p" target="_blank">Download Resume</a>
+      <a href="#contact" class="btn-s">Get in Touch</a>
     </div>
-</div>
-<!-- Portfolio End -->
+    <div class="scroll-ind">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </div>
+</section>
 
+<!-- ═══ EXPERIENCE ═══ -->
+<section id="experience">
+  <div class="container">
+    <div class="section-num reveal">00 — Profile</div>
+    <h2 class="section-title reveal">Experience <span class="dim">&amp; Skills</span></h2>
 
-         <!-- Experience Start -->
-        <div class="experience" id="experience">
-            <div class="container">
-                <header class="section-header text-center wow zoomIn" data-wow-delay="0.1s">
-                    <p>My Resume</p>
-                    <h2>Working Experience</h2>
-                </header>
-                <div class="timeline">
-                    <div class="timeline-item left wow slideInLeft" data-wow-delay="0.1s">
-                        <div class="timeline-text">
-                            <div class="timeline-date">Dec 2020 - Jan 2021</div>
-                            <h2>Data Science Intern</h2>
-                            <h4>The Sparks Foundation</h4>
-                            <p>
-                                Applying different machine learning algorithms to get the improved results and with accurate predictions. <a href="https://www.youtube.com/watch?v=PcJTWJ_RcvQ"> (View)</a>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="timeline-item right wow slideInRight" data-wow-delay="0.1s">
-                        <div class="timeline-text">
-                            <div class="timeline-date">Nov 2020 - Dec 2020</div>
-                            <h2>Web Developer Intern</h2>
-                            <h4>The Sparks Foundation</h4>
-                            <p>
-                                Create a Basic Banking System wherein a simple dynamic website with database, Showing proper transaction. <a href="https://www.youtube.com/watch?v=FmkN8bCu4pE"> (View)</a>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="timeline-item left wow slideInLeft" data-wow-delay="0.1s">
-                        <div class="timeline-text">
-                            <div class="timeline-date">Apr 2020 - June 2020</div>
-                            <h2>MLOps Training & Intern</h2>
-                            <h4>Linux World Informatics, Jaipur</h4>
-                            <p>
-                                Developed VGG, Inception, ResNet, MobileNet Models to optimize the performance of the model using Machine Learning frameworks. Deployed the models through a Continuous Integration and Continuous Deployment Jenkins pipeline. <a href="https://ani12thanvi.medium.com/integration-of-github-jenkins-docker-3ed529cbf0c1"> (View)</a>
-                            </p>
-                        </div>
-                    </div>
-                    
-                </div>
-            </div>
+    <div class="summary-banner reveal">
+      <p class="summary-text">
+        <strong>LLM Engineer</strong> with <strong>3+ years</strong> designing and deploying production-grade Generative AI, conversational AI, and machine learning systems for large enterprises. Proven track record delivering scalable AI platforms for Fortune 500 clients including <strong>Apple</strong> and <strong>GE Vernova</strong>. Deep expertise in LLMs, RAG, agentic workflows, conversational memory, and backend AI infrastructure.
+      </p>
+      <div class="summary-pills">
+        <span class="spill">3+ Years Experience</span>
+        <span class="spill">Fortune 500 Clients</span>
+        <span class="spill">Apple</span>
+        <span class="spill">GE Vernova</span>
+        <span class="spill">Production GenAI</span>
+        <span class="spill">Infosys Ltd.</span>
+      </div>
+    </div>
+
+    <div class="skills-label reveal">Core Skills Matrix</div>
+    <div class="skill-domains reveal">
+      <div class="skill-domain">
+        <div class="domain-title" style="color:var(--accent)"><span class="dot dot-ai"></span>Generative AI &amp; LLMs</div>
+        <div class="skill-tags">
+          <span class="stag stag-ai">LLMs</span><span class="stag stag-ai">Prompt Engineering</span><span class="stag stag-ai">RAG</span><span class="stag stag-ai">Tool Calling</span><span class="stag stag-ai">Agentic AI</span><span class="stag stag-ai">Memory Mgmt</span><span class="stag stag-ai">Semantic Search</span><span class="stag stag-ai">Conversational AI</span><span class="stag stag-ai">Text Summarization</span>
         </div>
-        <!-- Job Experience End -->
-        
-        
-        <!-- Banner Start
-        <div class="banner wow zoomIn" data-wow-delay="0.1s">
-            <div class="container">
-                <div class="section-header text-center">
-                    <p>Reasonable Price</p>
-                    <h2>Get A <span>Special</span> Price</h2>
-                </div>
-                <div class="container banner-text">
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec pretium mi. Curabitur facilisis ornare velit non vulputate. 
-                        Aliquam metus tortor, auctor id gravida condimentum, viverra quis sem. Curabitur non nisl nec nisi scelerisque maximus. 
-                    </p>
-                    <a class="btn">Pricing Plan</a>
-                </div>
-            </div>
+      </div>
+      <div class="skill-domain">
+        <div class="domain-title" style="color:var(--accent2)"><span class="dot dot-ml"></span>ML &amp; Data Science</div>
+        <div class="skill-tags">
+          <span class="stag stag-ml">Time Series</span><span class="stag stag-ml">ARIMA</span><span class="stag stag-ml">Prophet</span><span class="stag stag-ml">Anomaly Detection</span><span class="stag stag-ml">Feature Engineering</span><span class="stag stag-ml">Statistical Modeling</span><span class="stag stag-ml">Scikit-learn</span>
         </div>
-         Banner End -->
-
-
-        <!-- Team Start -->
-        <div class="team" id="team">
-            <div class="container">
-                <div class="section-header text-center wow zoomIn" data-wow-delay="0.1s">
-                    <p>My Appreciation</p>
-                    <h2>Awards & Achivements</h2>
-                </div>
-                <div class="row">
-                    <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.0s">
-                        <div class="team-item">
-                            <div class="team-img">
-                                <img src="img/award1.jpeg" alt="Image">
-                            </div>
-                            <div class="team-text">
-                                <h2>International Confrence</h2>
-                                <h4>@Poornima groups of Colleges</h4>
-                                <p>
-                                    Presented paper entitled "Bitcoin Price Prediction"
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.2s">
-                        <div class="team-item">
-                            <div class="team-img">
-                                <img src="img/award2.jpeg" alt="Image">
-                            </div>
-                            <div class="team-text">
-                                <h2>IT Hackathon 2.0</h2>
-                                <h4>@JECRC oundation</h4>
-                                <p>
-                                    Secured 5th Position and developed a project on smart cafeteria system
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.4s">
-                        <div class="team-item">
-                            <div class="team-img">
-                                <img src="img/award4.jpeg" alt="Image">
-                            </div>
-                            <div class="team-text">
-                                <h2>Start-up Oasis Innocity Bootcamp</h2>
-                                <h4>@JECRC Foundation</h4>
-                                <p>
-                                    Stood 1st runner-up
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.6s">
-                        <div class="team-item">
-                            <div class="team-img">
-                                <img src="img/award3.jpeg" alt="Image">
-                            </div>
-                            <div class="team-text">
-                                <h2>Techno-Ads Ren'19</h2>
-                                <h4>@JECRC Foundation</h4>
-                                <p>
-                                    Secured 3rd Position at College annual Fest in logo designing
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      </div>
+      <div class="skill-domain">
+        <div class="domain-title" style="color:var(--accent3)"><span class="dot dot-be"></span>Backend &amp; Systems</div>
+        <div class="skill-tags">
+          <span class="stag stag-be">Python</span><span class="stag stag-be">FastAPI</span><span class="stag stag-be">REST APIs</span><span class="stag stag-be">LangChain</span><span class="stag stag-be">Ollama</span><span class="stag stag-be">Pandas</span><span class="stag stag-be">NumPy</span><span class="stag stag-be">Inference Pipelines</span>
         </div>
-        <!-- Team End -->
-    
-
-
-        <!-- Blog Start -->
-        <div class="blog" id="blog">
-            <div class="container">
-                <div class="section-header text-center wow zoomIn" data-wow-delay="0.1s">
-                    <p>Research Work</p>
-                    <h2>Publications </h2>
-                </div>
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="blog-item wow fadeInUp" data-wow-delay="0.1s">
-                            <div class="blog-img">
-                                <img src="img/blog-1.jpg" height=300 alt="Blog">
-                            </div>
-                            <div class="blog-text">
-                                <h2>Bitcoin Exchange Rate Price Prediction Using Machine Learning Techniques: A Review </h2>
-                                <div class="blog-meta">
-                                    <p><i class="far fa-user"></i>Springer</p>
-                                    <p><i class="far fa-calendar-alt"></i>17-Sep-2020</p>
-                                </div>
-                                <p>
-                                    Virtual currencies are subsequently becoming more and more popular because of their use in financial communication worldwide. Bitcoin has gained an inducement in the area of cryptography, the science of wealth, and applied science due to its intrinsic behaviour of merging the encipher technology and pecuniary units. 
-                                </p>
-                                <a class="btn" href="https://link.springer.com/chapter/10.1007/978-981-15-4936-6_69">Read More <i class="fa fa-angle-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="blog-item wow fadeInUp" data-wow-delay="0.3s">
-                            <div class="blog-img">
-                                <img src="img/blog-2.jpg" height=300 alt="Blog">
-                            </div>
-                            <div class="blog-text">
-                                <h2>An Approach Towards Information Retrieval Through Machine Learning and its Algorithms: A Review</h2>
-                                <div class="blog-meta">
-                                    <p><i class="far fa-user"></i>Springer</p>
-
-                                    <p><i class="far fa-calendar-alt"></i>02-Oct-2020</p>
-   
-                                </div>
-                                <p>
-                                    Information is something that changes the user’s knowledge to a certain degree necessary to perform a task or solve a problem. Information retrieval used with machine learning enables the user to retrieve the query for the delivery of relevant results. 
-                                </p>
-                                <a class="btn" href="https://link.springer.com/chapter/10.1007%2F978-981-15-6014-9_77">Read More <i class="fa fa-angle-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6">
-                        <div class="blog-item wow fadeInUp" data-wow-delay="0.1s">
-                            <div class="blog-img">
-                                <img src="img/blog-3.jpg" height=300 alt="Blog">
-                            </div>
-                            <div class="blog-text">
-                                <h2>Malarial Parasite Detection by Leveraging Cognitive Algorithms: A Comparative Study </h2>
-                                <div class="blog-meta">
-                                    <p><i class="far fa-user"></i>Admin</p>
-                                    <p><i class="far fa-list-alt"></i>Web Design</p>
-                                    <p><i class="far fa-calendar-alt"></i>23-Jan-2020</p>
-                                    <p><i class="far fa-comments"></i>5</p>
-                                </div>
-                                <p>
-                                    Malaria alludes to an infectious mosquito-borne malady brought about by parasite sort plasmodium transferred by female anopheles mosquito. In the host liver, the parasite duplicates itself and starts annihilating the red blood cells.
-                                </p>
-                                <a class="btn" href="https://link.springer.com/chapter/10.1007/978-981-15-9689-6_78">Read More <i class="fa fa-angle-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6">
-                        <div class="blog-item wow fadeInUp" data-wow-delay="0.1s">
-                            <div class="blog-img">
-                                <img src="img/blog-4.png" height=300 alt="Blog">
-                            </div>
-                            <div class="blog-text">
-                                <h2>Coca-Cola(Serverless Computing) : A Case Study </h2>
-                                <div class="blog-meta">
-                                    <p><i class="far fa-user"></i>Admin</p>
-                                    <p><i class="far fa-list-alt"></i>Web Design</p>
-                                    <p><i class="far fa-calendar-alt"></i>01-Jan-2045</p>
-                                    <p><i class="far fa-comments"></i>5</p>
-                                </div>
-                                <p>
-                                    Whenever you feel bad , just remember that Coca-Cola only sold 25 bottles the first year. #Never_Give_up!!!
-                                    On May 8, 1886, Dr. John Pemberton served the world’s first Coca-Cola at Jacobs’ Pharmacy in Atlanta, Ga.
-                                </p>
-                                <a class="btn" href="https://ani12thanvi.medium.com/coca-cola-serverless-computing-a-case-study-f0fd56b0ffd9">Read More <i class="fa fa-angle-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6">
-                        <div class="blog-item wow fadeInUp" data-wow-delay="0.1s">
-                            <div class="blog-img">
-                                <img src="img/blog-5.jpeg" alt="Blog" height=300>
-                            </div>
-                            <div class="blog-text">
-                                <h2>Cognitive Intelligence: The Next Revolution</h2>
-                                <div class="blog-meta">
-                                    <p><i class="far fa-user"></i>Admin</p>
-                                    <p><i class="far fa-list-alt"></i>Web Design</p>
-                                    <p><i class="far fa-calendar-alt"></i>01-Jan-2045</p>
-                                    <p><i class="far fa-comments"></i>5</p>
-                                </div>
-                                <p>
-                                    New Era of Theories of Intelligence changing Artificial Intelligence.
-                                    Cognitive intelligence is a new concept for the next revolution. It is termed as when human cognitive functions are augmented by the programmed software’s. 
-                                 </p>
-                                <a class="btn" href=" https://ani12thanvi.medium.com/cognitive-intelligence-the-next-revolution-ae7a54a30872 ">Read More <i class="fa fa-angle-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
+      </div>
+      <div class="skill-domain">
+        <div class="domain-title" style="color:var(--accent4)"><span class="dot dot-fe"></span>Frontend &amp; Cloud</div>
+        <div class="skill-tags">
+          <span class="stag stag-fe">Angular</span><span class="stag stag-fe">MEAN Stack</span><span class="stag stag-cloud">AWS Trainium</span><span class="stag stag-cloud">Docker</span><span class="stag stag-cloud">Git</span>
         </div>
-        <!-- Blog End -->
+      </div>
+    </div>
 
+    <div class="timeline-label reveal">Professional Experience</div>
 
-        <!-- Contact Start -->
-        <div class="contact wow fadeInUp" data-wow-delay="0.1s" id="contact">
-            <div class="container-fluid">
-                <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col-md-4"></div>
-                        <div class="col-md-8">
-                            <div class="contact-form">
-                                <div id="success"></div>
-                                <form name="sentMessage" id="contactForm" novalidate="novalidate">
-                                    <div class="control-group">
-                                        <input type="text" class="form-control" id="name" placeholder="Your Name" required="required" data-validation-required-message="Please enter your name" />
-                                        <p class="help-block"></p>
-                                    </div>
-                                    <div class="control-group">
-                                        <input type="email" class="form-control" id="email" placeholder="Your Email" required="required" data-validation-required-message="Please enter your email" />
-                                        <p class="help-block"></p>
-                                    </div>
-                                    <div class="control-group">
-                                        <input type="text" class="form-control" id="subject" placeholder="Subject" required="required" data-validation-required-message="Please enter a subject" />
-                                        <p class="help-block"></p>
-                                    </div>
-                                    <div class="control-group">
-                                        <textarea class="form-control" id="message" placeholder="Message" required="required" data-validation-required-message="Please enter your message"></textarea>
-                                        <p class="help-block"></p>
-                                    </div>
-                                    <div>
-                                        <button class="btn" type="submit" id="sendMessageButton">Send Message</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-</div>
-        <!-- Contact End -->
-        <!-- Footer Start -->
-        <div class="footer wow fadeIn" data-wow-delay="0.3s">
-            <div class="container-fluid">
-                <div class="container">
-                    <div class="footer-info">
-                        <h2>Anirudhi Thanvi</h2>
-                        <h3></h3>
-                        <div class="footer-menu">
-                            <p>Connect Me </p>
-                            <p>thanvianirudhi1208@gmail.com</p>
-                        </div>
-                        <div class="footer-social">
-                            <a href="https://twitter.com/AnirudhiThanvi"><i class="fab fa-twitter"></i></a>
-                            <a href="https://www.facebook.com/anirudhithanvi/"><i class="fab fa-facebook-f"></i></a>
-                            <a href="https://www.youtube.com/channel/UCOhmVya19SUKXgvIV7s__tQ"><i class="fab fa-youtube"></i></a>
-                            <a href="https://github.com/ani-thanvi"><i class="fab fa-github"></i></a>
-                            <a href=" https://www.linkedin.com/in/anirudhithanvi/ "><i class="fab fa-linkedin-in"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="container copyright">
-                    <p>&copy; <a href="#">Anirudhi Thanvi</a>, All Right Reserved | Designed By &#10084; </p>
-                </div>
-            </div>
+    <div class="company-block reveal">
+      <div class="company-header">
+        <div>
+          <div class="company-name">Infosys Ltd.</div>
+          <div class="company-role">AI Engineer — Specialist Programmer</div>
         </div>
-        <!-- Footer End -->
-        
-        
-        <!-- Back to top button -->
-        <a href="#" class="btn back-to-top"><i class="fa fa-chevron-up"></i></a>
-        
-        
-        <!-- Pre Loader -->
-        <div id="loader" class="show">
-            <div class="loader"></div>
+        <div class="company-meta">
+          <span>Bengaluru, India</span>
+          <span class="tenure">Oct 2022 — Present</span>
         </div>
+      </div>
 
-        
-        <!-- JavaScript Libraries -->
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-        <script src="lib/easing/easing.min.js"></script>
-        <script src="lib/wow/wow.min.js"></script>
-        <script src="lib/waypoints/waypoints.min.js"></script>
-        <script src="lib/typed/typed.min.js"></script>
-        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-        <script src="lib/isotope/isotope.pkgd.min.js"></script>
-        <script src="lib/lightbox/js/lightbox.min.js"></script>
-        
-        <!-- Contact Javascript File -->
-        <script src="mail/jqBootstrapValidation.min.js"></script>
-        <script src="mail/contact.js"></script>
+      <div class="role-card c-ge">
+        <div class="role-header">
+          <div class="role-title">LLM Engineer — Enterprise GenAI Platform</div>
+          <span class="cbadge cb-ge">GE Vernova</span>
+        </div>
+        <ul class="role-bullets">
+          <li>Designed and deployed an enterprise-grade LLM-powered chatbot integrated into a production internal platform.</li>
+          <li>Implemented multi-turn conversational workflows with contextual memory, improving answer relevance and reducing repeated queries.</li>
+          <li>Built scalable FastAPI services for LLM orchestration, prompt routing, and secure API integrations.</li>
+          <li>Delivered GenAI PoCs involving structured/unstructured data retrieval and LLM-based summarization.</li>
+        </ul>
+      </div>
 
-        <!-- Template Javascript -->
-        <script src="js/main.js"></script>
-    </body>
+      <div class="role-card c-apple">
+        <div class="role-header">
+          <div class="role-title">ML Engineer — Real-Time Demand Forecasting</div>
+          <span class="cbadge cb-ap1">Apple</span>
+        </div>
+        <ul class="role-bullets">
+          <li>Architected real-time forecasting pipelines processing continuously updating enterprise datasets.</li>
+          <li>Implemented ARIMA and Prophet models for weekly, monthly, and yearly forecasting horizons.</li>
+          <li>Enabled data-driven operational planning by significantly reducing manual forecasting effort.</li>
+        </ul>
+      </div>
+
+      <div class="role-card c-apple">
+        <div class="role-header">
+          <div class="role-title">GenAI Engineer — Conversational Analytics Platform</div>
+          <span class="cbadge cb-ap2">Apple</span>
+        </div>
+        <ul class="role-bullets">
+          <li>Built an LLM-powered analytics system enabling natural language querying over Excel and CSV data.</li>
+          <li>Implemented ChatGPT-style multi-turn conversations with contextual memory and feedback loops.</li>
+          <li>Designed enterprise-grade authorization, ambiguity detection, and clarification workflows.</li>
+        </ul>
+      </div>
+
+      <div class="role-card c-apple">
+        <div class="role-header">
+          <div class="role-title">GenAI Engineer — Automated Data Summarization</div>
+          <span class="cbadge cb-ap3">Apple</span>
+        </div>
+        <ul class="role-bullets">
+          <li>Developed LLM-driven summarization engines for infrastructure and approval datasets.</li>
+          <li>Generated structured, factual, timeline-aware summaries using prompt-engineered workflows.</li>
+        </ul>
+      </div>
+
+      <div class="role-card c-misc">
+        <div class="role-header">
+          <div class="role-title">GenAI &amp; ML Proof-of-Concepts</div>
+          <span class="cbadge cb-misc">R&amp;D</span>
+        </div>
+        <ul class="role-bullets">
+          <li>Built end-to-end GenAI prototypes using LangChain and modern LLMs.</li>
+          <li>Trained and deployed LLMs using AWS Trainium and managed inference services.</li>
+          <li>Implemented RAG pipelines to improve factual accuracy and reduce hallucinations.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-label reveal">Early Experience</div>
+    <div class="early-grid reveal">
+      <div class="early-card">
+        <div class="early-org">Rajasthan Police HQ</div>
+        <div class="early-role">Software Developer Intern</div>
+        <p class="early-desc">Developed a web application supporting CID operational workflows and internal tooling for law enforcement operations.</p>
+      </div>
+      <div class="early-card">
+        <div class="early-org">Capgemini</div>
+        <div class="early-role">Analyst Intern — Python Developer</div>
+        <p class="early-desc">Built Python-based analytics pipelines and Django applications. Recognized for strong ownership and delivery quality.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ABOUT ═══ -->
+<section id="about">
+  <div class="container">
+    <div class="section-num reveal">01 — About</div>
+    <h2 class="section-title reveal">Who I <span class="dim">Am</span></h2>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>I'm <strong>Anirudhi Thanvi</strong> — an LLM Engineer and AI researcher based in Bengaluru, currently at <strong>Infosys Ltd.</strong> building production AI systems for Fortune 500 enterprises. My work spans conversational AI, RAG pipelines, forecasting, and agentic workflows deployed at scale.</p>
+        <p><em style="color:var(--accent);font-style:italic">"Be Somebody Nobody Thought You Could Be."</em> The 4 constants of my life: Coding, Laptop, Research, Caffeine.</p>
+        <p>Beyond engineering, I write about <strong>AI and open-source technology</strong> on Medium, breaking down frontier research and real-world deployments for the broader tech community.</p>
+        <p>I'm actively pursuing <strong>research collaborations</strong> — particularly in LLMs, computer vision, and robotics — including remote academic partnerships and open-source communities like EleutherAI and Hugging Face.</p>
+        <div class="about-skills">
+          <div class="ask">Large Language Models</div>
+          <div class="ask">Computer Vision</div>
+          <div class="ask">LangChain / LCEL</div>
+          <div class="ask">FastAPI / Python</div>
+          <div class="ask">RAG Pipelines</div>
+          <div class="ask">Open-Source AI</div>
+        </div>
+        <div class="soft-skills">
+          <div class="soft-skill-item">
+            <div class="soft-skill-header"><span class="soft-skill-name">Leadership Skills</span><span class="soft-skill-pct">85%</span></div>
+            <div class="skill-bar-bg"><div class="skill-bar-fill" style="--w:85%"></div></div>
+          </div>
+          <div class="soft-skill-item">
+            <div class="soft-skill-header"><span class="soft-skill-name">Time Management</span><span class="soft-skill-pct">95%</span></div>
+            <div class="skill-bar-bg"><div class="skill-bar-fill" style="--w:95%"></div></div>
+          </div>
+          <div class="soft-skill-item">
+            <div class="soft-skill-header"><span class="soft-skill-name">Listening Skills</span><span class="soft-skill-pct">90%</span></div>
+            <div class="skill-bar-bg"><div class="skill-bar-fill" style="--w:90%"></div></div>
+          </div>
+          <div class="soft-skill-item">
+            <div class="soft-skill-header"><span class="soft-skill-name">Creative &amp; Thinking</span><span class="soft-skill-pct">85%</span></div>
+            <div class="skill-bar-bg"><div class="skill-bar-fill" style="--w:85%"></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="orbit-wrap reveal">
+        <div class="orbit orbit-1"><div class="odot odot-1"></div></div>
+        <div class="orbit orbit-2"><div class="odot odot-2"></div></div>
+        <div class="orbit orbit-3"><div class="odot odot-3"></div></div>
+        <div class="core-node">AI/ML</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SERVICES ═══ -->
+<section id="services">
+  <div class="container">
+    <div class="section-num reveal">02 — Services</div>
+    <h2 class="section-title reveal">What I <span class="dim">Do</span></h2>
+    <div class="services-grid reveal">
+      <div class="svc-card">
+        <div class="svc-icon">⚙️</div>
+        <h3 class="svc-title">LLM Engineering</h3>
+        <p class="svc-desc">RAG pipelines, agentic workflows, prompt engineering, memory systems, LangChain, FastAPI — production-grade AI at enterprise scale.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon">📊</div>
+        <h3 class="svc-title">Data Science &amp; ML</h3>
+        <p class="svc-desc">Python, Machine Learning, Time Series Forecasting (ARIMA, Prophet), Anomaly Detection, Data Visualization.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon">🌐</div>
+        <h3 class="svc-title">Web Development</h3>
+        <p class="svc-desc">HTML, CSS, JavaScript, Angular, MEAN Stack, REST APIs, full-stack single-page applications.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon">🎓</div>
+        <h3 class="svc-title">Research &amp; Writing</h3>
+        <p class="svc-desc">Technical writing, domain research, published papers in ML, CV, blockchain, and IoT. Active Medium contributor.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon">🤖</div>
+        <h3 class="svc-title">MLOps</h3>
+        <p class="svc-desc">Deep Learning, Docker, Git, GitHub, AWS Trainium, CI/CD pipelines, model deployment and inference services.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon">💻</div>
+        <h3 class="svc-title">Programming</h3>
+        <p class="svc-desc">Python, C, C++. Tools: Anaconda, VSCode, Docker, GitHub, Ollama, Jupyter.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PROJECTS ═══ -->
+<section id="projects">
+  <div class="container">
+    <div class="section-num reveal">02 — Projects</div>
+    <h2 class="section-title reveal">What I've <span class="dim">Built</span></h2>
+    <div class="filter-bar reveal">
+      <button class="fbtn active" onclick="filterProjects('all',this)">All</button>
+      <button class="fbtn" onclick="filterProjects('ds',this)">Data Science</button>
+      <button class="fbtn" onclick="filterProjects('web',this)">Web Dev</button>
+    </div>
+    <div class="projects-grid" id="proj-grid">
+      <div class="project-card reveal" data-cat="ds">
+        <div class="pnum">PROJECT_001</div>
+        <h3 class="ptitle">Plant Disease Detection</h3>
+        <p class="pdesc">ML-powered system to detect plant diseases from leaf images using deep learning for agricultural intelligence and early-stage diagnosis.</p>
+        <div class="ptags"><span class="ptag">Computer Vision</span><span class="ptag">Deep Learning</span><span class="ptag">Python</span></div>
+        <a href="img/portfolio-1.jpg" class="plink">View Project ↗</a>
+      </div>
+      <div class="project-card reveal" data-cat="ds">
+        <div class="pnum">PROJECT_002</div>
+        <h3 class="ptitle">Facebook EDA</h3>
+        <p class="pdesc">Exploratory data analysis on Facebook user data — uncovering behavioral patterns, engagement trends, and social graph insights.</p>
+        <div class="ptags"><span class="ptag">EDA</span><span class="ptag">Pandas</span><span class="ptag">Data Viz</span></div>
+        <a href="https://jovian.ai/ani12thanvi/facebook-data-analysis" class="plink">View on Jovian ↗</a>
+      </div>
+      <div class="project-card reveal" data-cat="web">
+        <div class="pnum">PROJECT_003</div>
+        <h3 class="ptitle">Artistry — Ecommerce Platform</h3>
+        <p class="pdesc">Full-stack ecommerce web application for art and creative goods with product listings, cart, and checkout flow.</p>
+        <div class="ptags"><span class="ptag">Full Stack</span><span class="ptag">Ecommerce</span><span class="ptag">Web Dev</span></div>
+        <a href="https://github.com/ani-thanvi/Artistery--The-Power-of-Arts" class="plink">View on GitHub ↗</a>
+      </div>
+      <div class="project-card reveal" data-cat="ds">
+        <div class="pnum">PROJECT_004</div>
+        <h3 class="ptitle">Docker Project</h3>
+        <p class="pdesc">Containerized application deployment using Docker — demonstrating DevOps workflows, multi-service orchestration, and reproducible environments.</p>
+        <div class="ptags"><span class="ptag">Docker</span><span class="ptag">DevOps</span><span class="ptag">Containers</span></div>
+        <a href="https://github.com/ani-thanvi/DockerProject" class="plink">View on GitHub ↗</a>
+      </div>
+      <div class="project-card reveal" data-cat="web">
+        <div class="pnum">PROJECT_005</div>
+        <h3 class="ptitle">Annapurna — Food Delivery App</h3>
+        <p class="pdesc">End-to-end food delivery application with restaurant listings, real-time order tracking, and user authentication.</p>
+        <div class="ptags"><span class="ptag">Web Dev</span><span class="ptag">React</span><span class="ptag">Backend</span></div>
+        <a href="https://github.com/ani-thanvi/Annapurna" class="plink">View on GitHub ↗</a>
+      </div>
+      <div class="project-card reveal" data-cat="web">
+        <div class="pnum">PROJECT_006</div>
+        <h3 class="ptitle">Farmistry — AgriTech Web App</h3>
+        <p class="pdesc">Web platform connecting farmers and consumers with crop listings, market price tracking, and farmer-to-buyer communication tools.</p>
+        <div class="ptags"><span class="ptag">AgriTech</span><span class="ptag">Full Stack</span><span class="ptag">Web Dev</span></div>
+        <a href="https://github.com/ani-thanvi/Farmistry-WebApp" class="plink">View on GitHub ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ACHIEVEMENTS ═══ -->
+<section id="achievements">
+  <div class="container">
+    <div class="section-num reveal">04 — Awards</div>
+    <h2 class="section-title reveal">Awards &amp; <span class="dim">Achievements</span></h2>
+    <div class="ach-grid">
+      <div class="ach-card reveal">
+        <div class="ach-num">01</div>
+        <h3 class="ach-title">International Conference</h3>
+        <div class="ach-org">Poornima Group of Colleges</div>
+        <p class="ach-desc">Presented paper titled "Bitcoin Price Prediction" at an international academic conference.</p>
+      </div>
+      <div class="ach-card reveal">
+        <div class="ach-num">02</div>
+        <h3 class="ach-title">IT Hackathon 2.0 — 5th Place</h3>
+        <div class="ach-org">JECRC Foundation</div>
+        <p class="ach-desc">Secured 5th position. Developed a smart cafeteria system under hackathon conditions.</p>
+      </div>
+      <div class="ach-card reveal">
+        <div class="ach-num">03</div>
+        <h3 class="ach-title">Startup Oasis Innocity — 1st Runner-Up</h3>
+        <div class="ach-org">JECRC Foundation</div>
+        <p class="ach-desc">Stood 1st runner-up at the Startup Oasis Innocity Bootcamp entrepreneurship competition.</p>
+      </div>
+      <div class="ach-card reveal">
+        <div class="ach-num">04</div>
+        <h3 class="ach-title">Techno-Ads Ren'19 — 3rd Place</h3>
+        <div class="ach-org">JECRC Foundation</div>
+        <p class="ach-desc">Secured 3rd position at the college annual fest in logo designing competition.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ARTICLES ═══ -->
+<section id="articles">
+  <div class="container">
+    <div class="section-num reveal">05 — Articles</div>
+    <h2 class="section-title reveal">What I <span class="dim">Write</span></h2>
+    <div class="articles-list">
+      <div class="article-item reveal">
+        <div class="anum">001</div>
+        <div>
+          <h3 class="atitle">Moltbot, Clawdbot &amp; the Crypto Scam Nobody Talked About</h3>
+          <p class="adesc">The full story — viral open-source AI agent, forced rebrand, security vulnerabilities, and an entangled cryptocurrency scheme.</p>
+          <span class="atag">AI Agents</span>
+        </div>
+        <div class="adate">2024</div>
+      </div>
+      <div class="article-item reveal">
+        <div class="anum">002</div>
+        <div>
+          <h3 class="atitle">LCEL and the New LangChain: What Actually Changed</h3>
+          <p class="adesc">A deep-dive into the LangChain Expression Language restructuring — what broke, what got better, and how to migrate your pipelines.</p>
+          <span class="atag">LLM Tooling</span>
+        </div>
+        <div class="adate">2024</div>
+      </div>
+      <div class="article-item reveal">
+        <div class="anum">003</div>
+        <div>
+          <h3 class="atitle">Coca-Cola (Serverless Computing): A Case Study</h3>
+          <p class="adesc">On May 8, 1886, the world changed. A study in serverless architecture through the lens of the world's most iconic brand — and why you should never give up.</p>
+          <a href="https://ani12thanvi.medium.com/coca-cola-serverless-computing-a-case-study-f0fd56b0ffd9" class="atag" style="text-decoration:none;cursor:none">Read on Medium ↗</a>
+        </div>
+        <div class="adate">2021</div>
+      </div>
+      <div class="article-item reveal">
+        <div class="anum">004</div>
+        <div>
+          <h3 class="atitle">Cognitive Intelligence: The Next Revolution</h3>
+          <p class="adesc">New era of theories of intelligence changing AI. When human cognitive functions are augmented by programmed software — the next frontier.</p>
+          <a href="https://ani12thanvi.medium.com/cognitive-intelligence-the-next-revolution-ae7a54a30872" class="atag" style="text-decoration:none;cursor:none">Read on Medium ↗</a>
+        </div>
+        <div class="adate">2021</div>
+      </div>
+      <div class="article-item reveal" style="border-bottom:none">
+        <div class="anum">→</div>
+        <div>
+          <h3 class="atitle">Full Archive on Medium</h3>
+          <p class="adesc">All AI, open-source, and emerging technology articles available at ani12thanvi.medium.com</p>
+          <a href="https://ani12thanvi.medium.com" class="atag" style="text-decoration:none;cursor:none">Visit Medium ↗</a>
+        </div>
+        <div class="adate">2025</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PUBLICATIONS ═══ -->
+<section id="publications">
+  <div class="container">
+    <div class="section-num reveal">06 — Research</div>
+    <h2 class="section-title reveal">Publications <span class="dim">&amp; Papers</span></h2>
+    <div class="pub-grid">
+      <div class="pub-card reveal">
+        <div class="pub-idx">[1]</div>
+        <div>
+          <div class="pub-venue">Adv. Intell. Syst. Comput. · 2021</div>
+          <h3 class="pub-title">An Approach Toward Information Retrieval Through Machine Learning and Its Algorithms: A Review</h3>
+          <p class="pub-authors">Raghav Sharma, Bhanvi Menghani, <strong>Anirudhi Thanvi</strong>, Manish Kumar, Sunil Kumar Jangir</p>
+          <a href="https://doi.org/10.1007/978-981-15-6014-9_77" class="pub-doi">DOI: 10.1007/978-981-15-6014-9_77 ↗</a>
+        </div>
+        <div class="pub-meta"><span class="pub-year">2021</span><span class="pub-topic tp-ml">ML / Review</span></div>
+      </div>
+      <div class="pub-card reveal">
+        <div class="pub-idx">[2]</div>
+        <div>
+          <div class="pub-venue">Lect. Notes Networks Syst. · 2021</div>
+          <h3 class="pub-title">Malarial Parasite Detection by Leveraging Cognitive Algorithms: A Comparative Study</h3>
+          <p class="pub-authors">Raghav Sharma, <strong>Anirudhi Thanvi</strong>, Dinesh Goyal, Manish Kumar, Shatakshi Singh, Sunil Kumar Jangir</p>
+          <a href="https://doi.org/10.1007/978-981-15-9689-6_78" class="pub-doi">DOI: 10.1007/978-981-15-9689-6_78 ↗</a>
+        </div>
+        <div class="pub-meta"><span class="pub-year">2021</span><span class="pub-topic tp-cv">Computer Vision</span></div>
+      </div>
+      <div class="pub-card reveal">
+        <div class="pub-idx">[3]</div>
+        <div>
+          <div class="pub-venue">ML Approaches · IoT &amp; Blockchain · 2021</div>
+          <h3 class="pub-title">Blockchain for Vehicular Ad Hoc Network and Intelligent Transportation System: A Comprehensive Study</h3>
+          <p class="pub-authors">Raghav Sharma, <strong>Anirudhi Thanvi</strong>, Shatakshi Singh, Manish Kumar, Sunil Kumar Jangir</p>
+          <a href="https://doi.org/10.1002/9781119761884.CH7" class="pub-doi">DOI: 10.1002/9781119761884.CH7 ↗</a>
+        </div>
+        <div class="pub-meta"><span class="pub-year">2021</span><span class="pub-topic tp-bc">Blockchain</span></div>
+      </div>
+      <div class="pub-card reveal">
+        <div class="pub-idx">[4]</div>
+        <div>
+          <div class="pub-venue">ACM ICIMMI · 2022</div>
+          <h3 class="pub-title">Deep Convolution Neural Network-Based Analysis of Tomato Plant Leaves</h3>
+          <p class="pub-authors">Kabir Swami, <strong>Anirudhi Thanvi</strong>, Nakul Joshi, Sunil Kumar Jangir, Dinesh Goyal</p>
+          <a href="https://doi.org/10.1145/3590837.3590952" class="pub-doi">DOI: 10.1145/3590837.3590952 ↗</a>
+        </div>
+        <div class="pub-meta"><span class="pub-year">2022</span><span class="pub-topic tp-cv">Deep Learning</span></div>
+      </div>
+      <div class="pub-card reveal">
+        <div class="pub-idx">[5]</div>
+        <div>
+          <div class="pub-venue">ECS Transactions · April 2022</div>
+          <h3 class="pub-title">Tomato Plant Leaf Malady Detection Using Machine Intelligence</h3>
+          <p class="pub-authors"><strong>Anirudhi Thanvi</strong>, Sunil Kumar Jangir, Raghav Sharma, Manish Kumar, Dinesh Goyal, Monika</p>
+          <a href="https://doi.org/10.1149/10701.8301ECST" class="pub-doi">DOI: 10.1149/10701.8301ECST ↗</a>
+        </div>
+        <div class="pub-meta"><span class="pub-year">2022</span><span class="pub-topic tp-cv">Computer Vision</span></div>
+      </div>
+      <div class="pub-card reveal">
+        <div class="pub-idx">[6]</div>
+        <div>
+          <div class="pub-venue">Intl. Conf. on Information Management · 2019</div>
+          <h3 class="pub-title">Bitcoin Exchange Rate Price Prediction Using Machine Learning Techniques: A Review</h3>
+          <p class="pub-authors"><strong>Anirudhi Thanvi</strong>, Raghav Sharma, Bhanvi Menghani, Manish Kumar, Sunil Kumar Jangir</p>
+        </div>
+        <div class="pub-meta"><span class="pub-year">2019</span><span class="pub-topic tp-ml">ML / Finance</span></div>
+      </div>
+      <div class="pub-card reveal">
+        <div class="pub-idx">[7]</div>
+        <div>
+          <div class="pub-venue">IoT &amp; Cloud Computing · Healthcare · 2020</div>
+          <h3 class="pub-title">A Study on Uninterrupted Security in IoT Based Healthcare System</h3>
+          <p class="pub-authors"><strong>Anirudhi Thanvi</strong>, Raghav Sharma, Bhanvi Menghani, Manish Kumar, Sunil Kumar Jangir</p>
+        </div>
+        <div class="pub-meta"><span class="pub-year">2020</span><span class="pub-topic tp-iot">IoT / Security</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONTACT ═══ -->
+<section id="contact">
+  <div class="container">
+    <div class="section-num reveal">07 — Contact</div>
+    <h2 class="section-title reveal">Let's <span class="dim">Connect</span></h2>
+    <div class="contact-grid">
+      <div class="reveal">
+        <p class="contact-intro">Open to research collaborations, AI/ML engineering roles, and conversations about the future of intelligent systems. I respond to everything.</p>
+        <div class="contact-links">
+          <a href="mailto:thanvianirudhi1208@gmail.com" class="clink">
+            <div class="cline"></div><span class="clabel">Email</span><span class="cval">thanvianirudhi1208@gmail.com</span>
+          </a>
+          <a href="https://www.linkedin.com/in/anirudhithanvi/" class="clink" target="_blank">
+            <div class="cline"></div><span class="clabel">LinkedIn</span><span class="cval">/in/anirudhithanvi</span>
+          </a>
+          <a href="https://github.com/ani-thanvi" class="clink" target="_blank">
+            <div class="cline"></div><span class="clabel">GitHub</span><span class="cval">/ani-thanvi</span>
+          </a>
+          <a href="https://ani12thanvi.medium.com" class="clink" target="_blank">
+            <div class="cline"></div><span class="clabel">Medium</span><span class="cval">ani12thanvi.medium.com</span>
+          </a>
+        </div>
+        <div class="social-links">
+          <a href="https://twitter.com/AnirudhiThanvi" class="soc-link" target="_blank" title="Twitter">𝕏</a>
+          <a href="https://www.facebook.com/anirudhithanvi/" class="soc-link" target="_blank" title="Facebook">f</a>
+          <a href="https://www.youtube.com/channel/UCOhmVya19SUKXgvIV7s__tQ" class="soc-link" target="_blank" title="YouTube">▶</a>
+          <a href="https://github.com/ani-thanvi" class="soc-link" target="_blank" title="GitHub">⌥</a>
+          <a href="https://www.linkedin.com/in/anirudhithanvi/" class="soc-link" target="_blank" title="LinkedIn">in</a>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="form-group">
+          <input type="text" class="form-input" id="cf-name" placeholder="Your Name" />
+        </div>
+        <div class="form-group">
+          <input type="email" class="form-input" id="cf-email" placeholder="Your Email" />
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-input" id="cf-subject" placeholder="Subject" />
+        </div>
+        <div class="form-group">
+          <textarea class="form-input" id="cf-message" placeholder="Your Message"></textarea>
+        </div>
+        <button class="form-btn" onclick="sendMessage()">Send Message ↗</button>
+        <div class="form-success" id="form-success">Message sent! I'll get back to you soon.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="ftext">© 2025 Anirudhi Thanvi</span>
+  <span class="ftext">LLM Engineer · AI Researcher</span>
+  <span class="ftext">Bengaluru, India<span class="blink">_</span></span>
+</footer>
+
+<script>
+// Custom cursor
+const cur=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  cur.style.left=mx+'px';cur.style.top=my+'px';
+});
+(function animRing(){
+  rx+=(mx-rx)*.12;ry+=(my-ry)*.12;
+  ring.style.left=rx+'px';ring.style.top=ry+'px';
+  requestAnimationFrame(animRing);
+})();
+document.querySelectorAll('a,button,.project-card,.article-item,.pub-card,.role-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.classList.add('hover');ring.classList.add('hover')});
+  el.addEventListener('mouseleave',()=>{cur.classList.remove('hover');ring.classList.remove('hover')});
+});
+
+// Starfield
+const canvas=document.getElementById('stars'),ctx=canvas.getContext('2d');
+let W,H,stars=[];
+function resize(){
+  W=canvas.width=window.innerWidth;
+  H=canvas.height=window.innerHeight;
+  stars=Array.from({length:200},()=>({
+    x:Math.random()*W,y:Math.random()*H,
+    r:Math.random()*1.2+.2,o:Math.random()*.7+.1,
+    s:(Math.random()*.4+.05)*(Math.random()>.5?1:-1)
+  }));
+}
+resize();window.addEventListener('resize',resize);
+(function drawStars(){
+  ctx.clearRect(0,0,W,H);
+  stars.forEach(s=>{
+    s.o+=s.s*.015;
+    if(s.o>0.85||s.o<0.05)s.s*=-1;
+    ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+    ctx.fillStyle=`rgba(0,212,255,${s.o})`;ctx.fill();
+  });
+  requestAnimationFrame(drawStars);
+})();
+
+// Scroll reveal
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible')}});
+},{threshold:.08});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// Project filter
+function filterProjects(cat,btn){
+  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.project-card').forEach(c=>{
+    c.classList.toggle('hidden',cat!=='all'&&c.dataset.cat!==cat);
+  });
+}
+
+// Typed text
+const roles=['LLM Engineer','AI Researcher','Data Scientist','Web Developer','Researcher','Open-Source Builder'];
+let ri=0,ci=0,deleting=false;
+function typeLoop(){
+  const el=document.getElementById('typed-text');
+  if(!el)return;
+  const word=roles[ri];
+  if(!deleting){
+    el.textContent=word.slice(0,++ci);
+    if(ci===word.length){deleting=true;setTimeout(typeLoop,1400);return}
+  }else{
+    el.textContent=word.slice(0,--ci);
+    if(ci===0){deleting=false;ri=(ri+1)%roles.length;setTimeout(typeLoop,300);return}
+  }
+  setTimeout(typeLoop,deleting?55:95);
+}
+typeLoop();
+
+// Skill bars animate on scroll
+const barObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.skill-bar-fill').forEach(b=>b.classList.add('animated'));
+    }
+  });
+},{threshold:.2});
+document.querySelectorAll('.soft-skills').forEach(el=>barObs.observe(el));
+
+// Contact form
+function sendMessage(){
+  const name=document.getElementById('cf-name').value.trim();
+  const email=document.getElementById('cf-email').value.trim();
+  const msg=document.getElementById('cf-message').value.trim();
+  if(!name||!email||!msg){return;}
+  const mailto=`mailto:thanvianirudhi1208@gmail.com?subject=${encodeURIComponent(document.getElementById('cf-subject').value||'Portfolio Inquiry')}&body=${encodeURIComponent('From: '+name+'\nEmail: '+email+'\n\n'+msg)}`;
+  window.location.href=mailto;
+  document.getElementById('form-success').style.display='block';
+}
+</script>
+</body>
 </html>
